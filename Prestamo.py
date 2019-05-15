@@ -17,6 +17,7 @@ class Prestamo:
 		self.lblTiempo = Label(root, text="Tiempo de pago")
 		self.lblTiempo.pack()
         
+        #comentario de prueba
 
 
 root = Tk()
