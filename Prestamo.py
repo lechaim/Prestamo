@@ -18,6 +18,7 @@ class Prestamo:
 		self.lblTiempo.pack()
         
         #comentario de prueba
+        sasa
 
 
 root = Tk()
