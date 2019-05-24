@@ -1,5 +1,7 @@
 from tkinter import *
+import tkinter.messagebox
 from tkinter import ttk
+from datetime import date, datetime, timedelta
 
 class Prestamo:
     def __init__(self, root):
@@ -37,26 +39,60 @@ class Prestamo:
         #botones
 
         self.btnCalcular = Button(root, text = "Calcular", command = self.calcular).grid(row=4, column=0, pady = 10, padx = 5)
+
         self.btnLimpiar = Button(root, text = "Limpiar", ).grid(row=4, column=1, pady = 10, padx = 5)
 
+        self.btnCerrar = Button(root, text = "Cerrar", command = self.cerrar ).grid(row=4, column=2, pady = 10, padx = 5)
 
         #funciones
-
-        interes = self.txtInteres.get()
-        cantidad = self.txtCantidad.get()
-
 
     def borrar(self):
     	self.txtTiempo.delete(0, "END")
     	self.txtTiempo.update()
 
     def calcular(self):
-    	newWindow = Toplevel(root)
-    	newWindow.title("Pagos a realizar")
-    	newWindow.geometry("350x300")
 
-    	self.calculo = Label(newWindow, text="Aqui")
-    	self.calculo.grid(row=0, column=0, pady = 10, padx = 5)
+    	try:
+    		rafar = ""
+
+    		interes = int(self.txtInteres.get())
+    		cantidad = int(self.txtCantidad.get())
+    		resultado = interes * cantidad
+
+    		'''
+    		for x in range(5):
+    			rafar += "The new number is {}\n".format(x)
+
+
+    		#rafar = str(x)"\n" for x in range(5)
+
+    	'''	
+    		self.perdelta(date.today(), int(self.txtTiempo.get()), 7)
+
+    		#tkinter.messagebox.showinfo("title", total)
+    	except:
+
+    		tkinter.messagebox.showinfo("eroir", "Ha introducido los datos de mala forma")
+
+
+    def cerrar(self):
+    	self.root.destroy()  #funcion para cerrar en un boton
+
+    def perdelta(self, start, end, delta):
+        curr = start
+        rafar = ""
+        delta = timedelta(days=delta)
+        print("El prestamos fue expedido el dia {}".format(start))
+	    
+        for e in range(end):
+
+	        
+            curr += delta
+            rafar += "The new number is {}\n".format(curr)
+            
+
+        return tkinter.messagebox.showinfo("title", rafar)      
+
 
 
 root = Tk()
