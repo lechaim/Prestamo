@@ -2,12 +2,16 @@ from tkinter import *
 import tkinter.messagebox
 from tkinter import ttk
 from datetime import date, datetime, timedelta
+# usr/bin/bash -tt
 
 class Prestamo:
     def __init__(self, root):
         self.root = root
         root.title("Simple GUI")
         root.geometry("350x300")
+        #root.resizable(0,0)  
+
+        #root.overrideredirect(True) QUITA LA X
 
         #labels
         self.lblCantidad = Label(root, text="Cantidad")
@@ -40,34 +44,30 @@ class Prestamo:
 
         self.btnCalcular = Button(root, text = "Calcular", command = self.calcular).grid(row=4, column=0, pady = 10, padx = 5)
 
-        self.btnLimpiar = Button(root, text = "Limpiar", ).grid(row=4, column=1, pady = 10, padx = 5)
+        self.btnLimpiar = Button(root, text = "Limpiar", command = self.borrar ).grid(row=4, column=1, pady = 10, padx = 5)
 
         self.btnCerrar = Button(root, text = "Cerrar", command = self.cerrar ).grid(row=4, column=2, pady = 10, padx = 5)
 
         #funciones
 
     def borrar(self):
-    	self.txtTiempo.delete(0, "END")
-    	self.txtTiempo.update()
+        self.txtInteres.delete("0", END)
+        self.txtCantidad.delete("0", END)
+        self.txtTiempo.delete("0", END)
+        self.cmbTipoPago.delete("0",END)
+    	
 
     def calcular(self):
 
     	try:
     		rafar = ""
 
-    		interes = int(self.txtInteres.get())
+    		interes = int(self.txtInteres.get()) / 100
     		cantidad = int(self.txtCantidad.get())
-    		resultado = interes * cantidad
+    		resultado = (cantidad + (cantidad * interes)) / int(self.txtTiempo.get())
+            
 
-    		'''
-    		for x in range(5):
-    			rafar += "The new number is {}\n".format(x)
-
-
-    		#rafar = str(x)"\n" for x in range(5)
-
-    	'''	
-    		self.perdelta(date.today(), int(self.txtTiempo.get()), 7)
+    		self.perdelta(date.today(), int(self.txtTiempo.get()), 7, resultado)
 
     		#tkinter.messagebox.showinfo("title", total)
     	except:
@@ -78,22 +78,20 @@ class Prestamo:
     def cerrar(self):
     	self.root.destroy()  #funcion para cerrar en un boton
 
-    def perdelta(self, start, end, delta):
+    def perdelta(self, start, end, delta, resultado):
         curr = start
         rafar = ""
         delta = timedelta(days=delta)
-        print("El prestamos fue expedido el dia {}".format(start))
-	    
+        rafar += "El prestamos fue expedido el dia {}\n".format(start)
+
         for e in range(end):
 
 	        
             curr += delta
-            rafar += "The new number is {}\n".format(curr)
+            rafar += "Deberá pagar {} pesos el día {}\n".format(resultado, curr)
             
-
-        return tkinter.messagebox.showinfo("title", rafar)      
-
-
+        return tkinter.messagebox.showinfo("title", rafar)     
+         
 
 root = Tk()
 my_gui = Prestamo(root)
