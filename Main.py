@@ -1,20 +1,21 @@
 from tkinter import *
 import tkinter.messagebox
 from tkinter import ttk
-import sqlite3
+
+class Principal:
+	
+	def __init__(self, root):
+		self.root = root
+		root.title("PretaO")
+		root.geometry("650x500")
+
+		self.btnCalcular = Button(root, text = "Abridor de la clase prestamo", command= self.abreClasePrestamo)
+		self.btnCalcular.grid(row=4, column=0, pady =15, padx = 5)
 
 
-#conn = sqlite3.connect('BD_trabajo.db')
-
-#conn.execute("SELECT * FROM sqlite_master"); DICE QUE NO TIENE TABLAS
-
-
-#conn.execute("INSERT INTO Usuario (id_usuario,usuario,contrasena) \
-#     VALUES (4, 'MJoseph', 7240)");
-
-#conn.commit()
-#print ("Records created successfully");
-#conn.close()
+	def abreClasePrestamo(self):
+		Principal().destroy()
+		Usuario(root)
 
 
 class Usuario:
@@ -30,7 +31,19 @@ class Usuario:
 
 		self.lblContrasena = Label(root, text="Contraseña")
 		self.lblContrasena.grid(row=1, column=0, pady = 10, padx = 15, sticky=W)
+class Principal:
+	
+	def __init__(self, root):
+		self.root = root
+		root.title("PretaO")
+		root.geometry("650x500")
 
+		self.btnCalcular = Button(root, text = "Abridor de la clase prestamo", command= self.abreClasePrestamo)
+		self.btnCalcular.grid(row=4, column=0, pady =15, padx = 5)
+
+
+	def abreClasePrestamo(self):
+		Usuario(root)
 		# textboxes
 
 		self.txtNombreUsuario = Entry(root)
@@ -64,8 +77,6 @@ class Usuario:
 		
 		if len(cursor.fetchall()) > 0:
 			tkinter.messagebox.showinfo("Mensaje", "Bienvenido!")
-			self.inicioCorrecto()
-
 		else:
 			tkinter.messagebox.showinfo("Mensaje", "Nombre de usuario o contraseña incorrecta, por favor verifique sus datos.")
 
@@ -78,25 +89,6 @@ class Usuario:
 			#tkinter.messagebox.showinfo("Error", "Por favor introduzca los datos de la manera correcta")
 			#conn.close()
 
-	def inicioCorrecto(self):
-		Principal(root)
-		
-
-
-class Principal:
-	
-	def __init__(self, root):
-		self.root = root
-		root.title("PretaO")
-		root.geometry("650x500")
-
-		self.btnCalcular = Button(root, text = "Abridor de la clase prestamo", command= self.abreClasePrestamo)
-		self.btnCalcular.grid(row=4, column=0, pady =15, padx = 5)
-
-
-	def abreClasePrestamo(self):
-		Usuario(root)
-
 root = Tk()
-my_gui = Usuario(root)
+my_gui = Principal(root)
 root.mainloop()

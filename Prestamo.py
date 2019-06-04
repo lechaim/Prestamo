@@ -74,7 +74,6 @@ class Prestamo:
 	def calcular(self):
 
 		try:
-
 			interes = int(self.txtInteres.get()) / 100
 			cantidad = int(self.txtCantidad.get())
 			resultado = (cantidad + (cantidad * interes)) / int(self.txtTiempo.get())
